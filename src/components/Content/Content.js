@@ -9,6 +9,7 @@ class Content extends Component {
     const totalAmount = (this.props.monthlyPayment * (this.props.isFetchingData ? this.props.lastLoanDuration : this.props.loanDuration));
     return (
       <div className="content">
+        <div className="main-header">EMI Details</div>
         <div className="interest-rate header">Interest Rate:</div>
         <div className="interest-rate value">{this.props.interestRate}</div>
         <div className="monthly-payment header">Monthly Payment:</div>

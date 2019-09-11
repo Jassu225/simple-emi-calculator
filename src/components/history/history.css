@@ -7,6 +7,9 @@
     padding-left: 1vw;
     background-color: #4aa6e2;
     color: white;
+    /* box-shadow: 0px 4px 6px 0px #cfcfcf; */
+    position: relative;
+    z-index: 1;
 }
 
 .history > .history-header > .title {
@@ -33,7 +36,8 @@
     height: 7vh;
     min-height: 40px;
     border-bottom: 1px dashed #c8c8c8;
-    cursor: pointer;
+    display: grid;
+    grid-template: 1fr / 1fr 1fr 1fr;
 }
 
 .history > .history-content .history-item:hover {
@@ -41,22 +45,47 @@
 }
 
 .history > .history-content .history-item > .history-loan-amount,
-.history > .history-content .history-item > .history-loan-duration {
+.history > .history-content .history-item > .history-loan-duration,
+.history > .history-content .history-item > .action-container {
     width: 100%;
-    height: 50%;
-    display: grid;
-    grid-template: 1fr / 1fr 1fr;
-    text-align: start;
+    height: 100%;
+    /* display: grid;
+    grid-template: 1fr / 1fr 1fr; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     padding-left: 1rem;
 }
 
-.history > .history-content .history-item > .history-loan-amount > .history-loan-amount-header,
+.history > .history-content .history-item > .action-container {
+    padding-left: 0;
+}
+
+.history > .history-content .history-item > .action-container > .action {
+    width: 70%;
+    height: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 6px 0 #7d7d7d;
+    color: white;
+    background-color: #3ab7c8;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.history > .history-content .history-item > .action-container > .action:hover {
+    transform: scale(1.1);
+}
+
+/* .history > .history-content .history-item > .history-loan-amount > .history-loan-amount-header,
 .history > .history-content .history-item > .history-loan-duration > .history-loan-duration-header  {
     font-size: 1rem;
     font-weight: 300;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
 }
 
 .history > .history-content .history-item > .history-loan-amount > .history-loan-amount-value,
@@ -66,5 +95,4 @@
     padding-left: 0;
     display: flex;
     align-items: center;
-    /* justify-content: center; */
-}
+} */

@@ -1,0 +1,54 @@
+.content {
+    display: grid;
+    grid-template: 10% 1fr 1fr 1fr 7fr / 4fr 5fr;
+    grid-template-areas: "mainHeader mainHeader"
+                        "interestHeader interestValue"
+                        "monthlyPaymentHeader monthlyPaymentValue"
+                        "totalPaymentHeader totalPaymentValue"
+                        ". .";
+    background-color: #eff9ff;
+}
+
+.content > .main-header,
+.content > .interest-rate.header,
+.content > .interest-rate.value,
+.content > .monthly-payment.header,
+.content > .monthly-payment.value,
+.content > .total-payment.header,
+.content > .total-payment.value {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 1rem;
+}
+
+.content > .main-header {
+    grid-area: mainHeader;
+    background-color: #939393;
+    color: white;
+    background-color: #4aa6e2;
+}
+
+.content > .interest-rate.header {
+    grid-area: interestHeader;
+}
+
+.content > .interest-rate.value {
+    grid-area: interestValue;
+}
+
+.content > .monthly-payment.header {
+    grid-area: monthlyPaymentHeader;
+}
+
+.content > .monthly-payment.value {
+    grid-area: monthlyPaymentValue;
+}
+
+.content > .total-payment.header {
+    grid-area: totalPaymentHeader;
+}
+
+.content > .total-payment.value {
+    grid-area: totalPaymentValue;
+}

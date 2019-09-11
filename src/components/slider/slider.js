@@ -20,10 +20,18 @@ class Slider extends Component {
       steps: [],
       onSlide: null
     }
+    // this.isStateDirty = false;
     this.state = {
-      handleValue: this.sliderObject.handleInfo.value,
+      // handleValue: this.sliderObject.handleInfo.value,
       handleLabelStyle: {}
     };
+  }
+
+  shouldComponentUpdate(newProps, newState) {
+    return (
+      (JSON.stringify(this.state) != JSON.stringify(newState))
+      || (JSON.stringify(this.props)) != JSON.stringify(newProps)
+    );
   }
 
   componentWillMount() {
@@ -33,6 +41,8 @@ class Slider extends Component {
       this.sliderObject.totalPoints = steps.length - 1;
       this.sliderObject.max = steps.length - 1;
       this.sliderObject.onSlide = this.props.onSlide && typeof this.props.onSlide === "function" ? this.props.onSlide : null;
+      // this.props.value = this.sliderObject.steps[this.sliderObject.handleInfo.value];
+      // this.setState({handleLabelValue: this.sliderObject.steps[this.sliderObject.handleInfo.value]});
     }
   }
 
@@ -52,6 +62,26 @@ class Slider extends Component {
         }
       }
     },0);
+  }
+
+  getIndex = (value) => {
+    let index = this.sliderObject.steps.findIndex(val => val === value);
+    return index > -1 ? index : 0;
+  }
+
+  componentDidUpdate() {
+    console.log('updated');
+    let actualValue = "", useValue = false;;
+    if(this.props.value) {
+      actualValue = this.props.value;
+    } else
+      useValue = true;
+    this.sliderObject.handleInfo.value = this.getIndex(actualValue);
+    let {min, totalPoints} = this.sliderObject;  
+    let hanldeEl = this.handle.current;
+    this.sliderObject.handleInfo.value = useValue ? this.sliderObject.handleInfo.value : this.getIndex(actualValue);
+    hanldeEl.style.left = this.calcPosition(this.sliderObject.handleInfo.value, min, totalPoints, hanldeEl);
+    // this.isStateDirty = false;
   }
 
   getWidth(font, txt) {
@@ -116,6 +146,9 @@ class Slider extends Component {
     let min = object.min, max = object.max;
     let sliderClientRect = slider.getBoundingClientRect();
     let sliderWidth = sliderClientRect.width, pointWidth = sliderWidth / totalPoints;
+    let handleClientRect = handle.getBoundingClientRect();
+    handleData.pageX = handleClientRect.left + handleClientRect.width / 2;
+    handleData.pageY = handleClientRect.top + handleClientRect.height / 2;
     let offsetWidth = event.pageX - handleData.pageX;
     newValue = preValue + (offsetWidth < 0 ? -Math.round((-offsetWidth) / pointWidth) : Math.round(offsetWidth / pointWidth));
     if (newValue < min)
@@ -131,12 +164,12 @@ class Slider extends Component {
         // this.setState({handleStyle: { 
         //   left: this.calcPosition(newValue, min, totalPoints, handleClientRect.width)
         // }});
-        handle.style.left = this.calcPosition(newValue, min, totalPoints, handle);
-        let handleClientRect = handle.getBoundingClientRect();
-        handleData.pageX = handleClientRect.left + handleClientRect.width / 2;
-        handleData.pageY = handleClientRect.top + handleClientRect.height / 2;
+        // handle.style.left = this.calcPosition(newValue, min, totalPoints, handle);
         handleData.value = newValue;
-        this.setState(state => ({...state, handleValue: newValue}), _=> this.dispatchEvent("resize", window));
+        // this.isStateDirty = true;
+        if(this.props.showHandleLabel) {
+          this.dispatchEvent("resize", window);
+        }
         // handle.data.values[i] = newValue;
         //console.log(newValue);
         return ((object.onSlide && typeof object.onSlide === "function" && object.onSlide(event, data)) || !object.onSlide);
@@ -157,7 +190,7 @@ class Slider extends Component {
         >
         {this.props.showHandleLabel &&
           <div className="ui-slider-handle-label" style={this.state.handleLabelStyle}>
-            {this.sliderObject.steps[this.state.handleValue]}
+            {this.props.value}
           </div>
         }
         </div>

@@ -19,18 +19,15 @@ class History extends Component {
     let elements = [], history = this.props.historyData ? this.props.historyData : [];
     for(let i = 0; i < history.length; i++) {
       elements.push(
-        <div className="history-item" key={i} onClick={ _=> this.historyItemClicked(i)}>
+        <div className="history-item" key={i}>
           <div className="history-loan-amount">
-            <div className="history-loan-amount-header">loan amount: </div>
-            <div className="history-loan-amount-value">
-              {history[i].principal.amount + " " + history[i].principal.currency}
-            </div>
+            {history[i].principal.amount + " " + history[i].principal.currency}
           </div>
           <div className="history-loan-duration">
-            <div className="history-loan-duration-header">duration: </div>
-            <div className="history-loan-duration-value">
-              {history[i].numPayments + " " + constants.loanDurationRange.unit}
-            </div>
+            {history[i].numPayments + " " + constants.loanDurationRange.unit}
+          </div>
+          <div className="action-container">
+            <div className="action btn" onClick={ _=> this.historyItemClicked(i)}>view</div>
           </div>
         </div>
       );

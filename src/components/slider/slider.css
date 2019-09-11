@@ -3,7 +3,8 @@
     min-width: 300px;
     height: 4px;
     border-radius: 20px;
-    background-color: lightgray;
+    /* background-color: lightgray; */
+    background-color: #47acee;
     position: relative;
     cursor: pointer;
     box-sizing: border-box;
@@ -20,7 +21,8 @@
     cursor: pointer;
     /* display: flex;
     justify-content: center; */
-    background-color: black;
+    /* background-color: black; */
+    background-color: #5e92db;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -38,10 +40,12 @@
     top: -38px;
     border-radius: 4px;
     /* padding: 0 10px; */
-    box-shadow: 0 0 3px 0 rgba(0,0,0,0.4);
+    /* box-shadow: 0 0 3px 0 rgba(0,0,0,0.4); */
     /* box-sizing: content-box; */
     outline: none !important;
     background-color: #f5f5f5;
+    border: 1px solid #62bddd;
+    z-index: 10;
 }
 
 .ui-slider-handle-label:after {
@@ -55,7 +59,7 @@
     margin: auto;
     border-width: 6px;
     border-style: solid;
-    border-top-color: #cfcfcf;
+    border-top-color: #4697b4;
     border-left-color: transparent;
     border-right-color: transparent;
     border-bottom-color: transparent;
