@@ -8,6 +8,7 @@ import constants from './store/constants';
 import Slider from './components/slider';
 import History from './components/history';
 import Content from './components/Content';
+import Loader from './components/Loader';
 
 import { actions } from './store/actions';
 import store from './store';
@@ -35,18 +36,26 @@ class App extends React.Component {
       <div className="App">
         <History/>
         <div className="sliders">
+          <div className="header">Selections</div>
+          <div className="slider-selection loanAmount">
+            <div className="slider-selection-header">Loan Amount: </div>
+            <div className="slider-selection-value">{this.props.loanAmount + " " + this.props.currencyUnit}</div>
+          </div>
           <div className="slider-container">
             <Slider steps={loanAmountRange} data={{stateProp: "loanAmount", action: actions.updateLoanAmount }}
-            showHandleLabel className="loanAmountSlider" onSlide={this.onSlide}/>
+            showHandleLabel className="loanAmountSlider" onSlide={this.onSlide} value={this.props.loanAmountHandleValue}/>
           </div>
-          <div className="slider-selection loanAmount">{this.props.loanAmount + " " + this.props.currencyUnit}</div>
+          <div className="slider-selection loanDuration">
+            <div className="slider-selection-header">Duration: </div>
+            <div className="slider-selection-value">{this.props.loanDuration + " " + constants.loanDurationRange.unit}</div>
+          </div>
           <div className="slider-container">
             <Slider steps={loanDurationRange} data={{stateProp: "loanDuration", action: actions.updateLoanDuration }}
-            showHandleLabel className="loanDurationSlider"  onSlide={this.onSlide}/>
+            showHandleLabel className="loanDurationSlider"  onSlide={this.onSlide} value={this.props.loanDurationHandleValue}/>
           </div>
-          <div className="slider-selection loanDuration">{this.props.loanDuration + " " + constants.loanDurationRange.unit}</div>
         </div>
         <Content />
+        {/* <Loader /> */}
       </div>
     );
   }
@@ -56,7 +65,9 @@ const mapStateToProps = (state, props) => {
   return {
     loanAmount: state.loanAmount,
     loanDuration: state.loanDuration,
-    currencyUnit: state.currencyUnit
+    currencyUnit: state.currencyUnit,
+    loanAmountHandleValue: state.loanAmountHandleValue,
+    loanDurationHandleValue: state.loanDurationHandleValue
   }
 }
 

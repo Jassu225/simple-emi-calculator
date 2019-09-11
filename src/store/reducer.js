@@ -10,6 +10,8 @@ let initialState = {
     interestRate: 0,
     monthlyPayment: 0,
     historyData: localStore.getData(),
+    loanAmountHandleValue: constants.loanAmountRange.min + " " + constants.loanAmountRange.unit,
+    loanDurationHandleValue: constants.loanDurationRange.min + " " + constants.loanDurationRange.unit,
     addToHistory: true,
     fetchData: false,
     isFetchingData: false,
@@ -22,19 +24,23 @@ let reducer = function (state = initialState, action) {
         let payload = null;
         if(action.payload)
             payload = parseFloat(action.payload);
+        payload = payload && isNaN(payload) ? state.loanAmount : payload;
         return {
             ...state, 
-            loanAmount: payload && !isNaN(payload) ? payload : state.loanAmount,
+            loanAmount: payload,
+            loanAmountHandleValue: payload + " " + constants.loanAmountRange.unit,
             fetchData: true
         }}
         case actionTypes.updateLoanDuration: {
         let payload = null;
         if(action.payload)
             payload = parseFloat(action.payload);
+        payload = payload && isNaN(payload) ? state.loanDuration : payload;
         return {
             ...state, 
             lastLoanDuration: state.loanDuration,
-            loanDuration: payload && !isNaN(payload) ? payload : state.loanDuration,
+            loanDuration: payload,
+            loanDurationHandleValue: payload + " " + constants.loanDurationRange.unit,
             fetchData: true
         }}
         case actionTypes.loadFromHistory:
@@ -42,6 +48,8 @@ let reducer = function (state = initialState, action) {
             ...state,
             loanAmount: action.payload.principal.amount,
             loanDuration: action.payload.numPayments,
+            loanAmountHandleValue: action.payload.principal.amount + " " + action.payload.principal.currency,
+            loanDurationHandleValue: action.payload.numPayments + " " + constants.loanDurationRange.unit,
             fetchData: true,
             addToHistory: action.payload.addToHistory
         }
