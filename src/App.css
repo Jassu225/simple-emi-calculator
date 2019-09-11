@@ -1,5 +1,17 @@
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
 .App-logo {
@@ -30,4 +42,35 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.sliders {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  grid-template: 1fr / 1fr 10% 1fr 10%;
+  grid-area: sliders;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slider-selection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.history {
+  grid-area: history;
+}
+
+.App {
+  display: grid;
+  grid-template: 1fr 2fr / 25% 1fr;
+  grid-template-areas: "history sliders"
+                        "history content";
 }
