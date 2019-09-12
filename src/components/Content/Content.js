@@ -6,7 +6,7 @@ import './Content.css';
 class Content extends Component {
 
   render() {
-    const totalAmount = (this.props.monthlyPayment * (this.props.isFetchingData ? this.props.lastLoanDuration : this.props.loanDuration));
+    // const totalAmount = (this.props.monthlyPayment * (this.props.isFetchingData ? this.props.lastLoanDuration : this.props.loanDuration));
     return (
       <div className="content">
         <div className="main-header">EMI Info</div>
@@ -19,7 +19,7 @@ class Content extends Component {
           </div>
           <div className="total-payment header">Total Amount Payable:</div>
           <div className="total-payment value">
-            {totalAmount + " " + this.props.currencyUnit}
+            {this.props.totalPayableAmount}
           </div>
         </div>
       </div>
@@ -29,9 +29,10 @@ class Content extends Component {
 
 const mapStateToProps = (state) => {
   let { loanAmount, loanDuration, currencyUnit, interestRate,
-     monthlyPayment, isFetchingData, lastLoanDuration} = state;
+     monthlyPayment, isFetchingData, lastLoanDuration, totalPayableAmount} = state;
   return {
-    loanAmount, loanDuration, currencyUnit, interestRate, monthlyPayment, isFetchingData, lastLoanDuration
+    loanAmount, loanDuration, currencyUnit, interestRate, monthlyPayment, 
+    isFetchingData, lastLoanDuration, totalPayableAmount
   }
 }
 

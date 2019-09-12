@@ -4,11 +4,12 @@ import localStore from './localStore';
 
 let initialState = {
     loanAmount: constants.loanAmountRange.min,
-    currencyUnit: "USD",
-    lastLoanDuration : constants.loanDurationRange.min,
+    currencyUnit: constants.loanAmountRange.unit,
+    // lastLoanDuration : constants.loanDurationRange.min,
     loanDuration: constants.loanDurationRange.min, // in months
     interestRate: 0,
     monthlyPayment: 0,
+    totalPayableAmount: 0 + " " + constants.loanAmountRange.unit,
     historyData: localStore.getData(),
     loanAmountHandleValue: constants.loanAmountRange.min + " " + constants.loanAmountRange.unit,
     loanDurationHandleValue: constants.loanDurationRange.min + " " + constants.loanDurationRange.unit,
@@ -39,7 +40,7 @@ let reducer = function (state = initialState, action) {
         payload = payload && isNaN(payload) ? state.loanDuration : payload;
         return {
             ...state, 
-            lastLoanDuration: state.loanDuration,
+            // lastLoanDuration: state.loanDuration,
             loanDuration: payload,
             loanDurationHandleValue: payload + " " + constants.loanDurationRange.unit,
             fetchData: action.payload.fetchFromDB
@@ -62,13 +63,14 @@ let reducer = function (state = initialState, action) {
         }
         case actionTypes.responseReceived:
         // console.log(action.payload);
-        let {interestRate, monthlyPayment} = action.payload;
+        let {interestRate, monthlyPayment, numPayments} = action.payload;
         let newState = {
             ...state,
             isFetchingData: false,
             interestRate: interestRate * 100 + "%",
             monthlyPayment: monthlyPayment.amount,
-            currencyUnit: monthlyPayment.currency
+            currencyUnit: monthlyPayment.currency,
+            totalPayableAmount: monthlyPayment.amount * numPayments + " " + monthlyPayment.currency
         }
         if  (state.addToHistory) {
             localStore.push(action.payload);
@@ -86,6 +88,12 @@ let reducer = function (state = initialState, action) {
         return {
             ...state,
             showAlert: false
+        }
+        case actionTypes.clearHistory:
+        localStore.clear();
+        return {
+            ...state,
+            historyData: localStore.getData()
         }
         default: 
             return state;

@@ -41,6 +41,10 @@ class History extends Component {
       <div className="history">
         <div className="history-header">
           <div className="title">History</div>
+          <div className="clearBtn-container">
+            <div className={"btn" + (elements.length ? "" : " disabled")}
+             onClick={this.props.clearHistory}>&#x2715; &nbsp; Clear</div>
+          </div>
           <div className="sub-headers">
             <div>Loan Amount</div>
             <div>Duration</div>
@@ -62,7 +66,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    loadDataFromHistory: payload => dispatch(actions.loadFromHistory(payload))
+    loadDataFromHistory: payload => dispatch(actions.loadFromHistory(payload)),
+    clearHistory: _=> dispatch(actions.clearHistory())
   }
 }
 

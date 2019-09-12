@@ -3,6 +3,7 @@ import thunkMiddleware from 'redux-thunk';
 import reducer from './reducer';
 import { actions } from './actions';
 
+// for redux dev-tools extension
 const composeEnhancers =
   typeof window === 'object' &&
   window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
@@ -16,7 +17,6 @@ store.subscribe(function(){
     let state = store.getState();
     let { fetchData, loanAmount, loanDuration, isFetchingData } = state;
     if (fetchData && !isFetchingData) {
-        // debugger
         store.dispatch(actions.getData({loanAmount, loanDuration}));
     }
 });

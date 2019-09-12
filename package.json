@@ -2,6 +2,7 @@
   "name": "simple-emi-calculator",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://jassu225.github.io/simple-emi-calculator",
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
     "core-js": "^3.2.1",
@@ -20,6 +21,8 @@
     "start": "node server.js",
     "devstart": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -38,5 +41,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
+  }
 }

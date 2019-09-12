@@ -13,6 +13,7 @@ const actionTypes = {
     updateLoanAmount: "updateLoanAmount",
     updateLoanDuration: "updateLoanDuration",
     loadFromHistory: "loadFromHistory",
+    clearHistory: "clearHistory",
     // network related
     requestInitiated: "requestInitiated",
     responseReceived: "responseReceived",
@@ -24,6 +25,7 @@ const actions = {
     updateLoanAmount: payload => action(actionTypes.updateLoanAmount, payload),
     updateLoanDuration: payload => action(actionTypes.updateLoanDuration, payload),
     loadFromHistory: payload => action(actionTypes.loadFromHistory, payload),
+    clearHistory: _ => action(actionTypes.clearHistory),
     // pure actions -- network related
     requestInitiated: _=> action(actionTypes.requestInitiated),
     responseReceived: payload => action(actionTypes.responseReceived, payload),

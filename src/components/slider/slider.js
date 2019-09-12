@@ -13,14 +13,15 @@ class Slider extends Component {
     this.sliderObject = {
       totalPoints: 0, // no. of divisions in the slider (usually equals to [no. of steps] - 1)
       handleInfo: {
-        value: 0, 
-        pageX: -1,
-        pageY: -1,
-        drag: false
+        value: 0, // stores handle index
+        pageX: -1, // stores handle's offsetX
+        pageY: -1, // stores handle's offsetY
+        drag: false // used to determine whether handle is being dragged by the user
       },
       min: 0,
       max: 0,
-      steps: [],
+      steps: [], // array of all possible values in the slider
+      // slide events
       onSlide: null,
       onSlideEnd: null
     }
@@ -40,6 +41,7 @@ class Slider extends Component {
   componentWillMount() {
     let steps = this.props.steps;
     if(Array.isArray(steps) && steps.length > 0) {
+      // initialing slider object
       this.sliderObject.steps = steps;
       this.sliderObject.totalPoints = steps.length - 1;
       this.sliderObject.max = steps.length - 1;
@@ -47,8 +49,6 @@ class Slider extends Component {
               this.props.onSlide : null;
       this.sliderObject.onSlideEnd = this.props.onSlideEnd && typeof this.props.onSlideEnd === "function" ? 
               this.props.onSlideEnd : null;
-      // this.props.value = this.sliderObject.steps[this.sliderObject.handleInfo.value];
-      // this.setState({handleLabelValue: this.sliderObject.steps[this.sliderObject.handleInfo.value]});
     }
   }
 
@@ -56,13 +56,16 @@ class Slider extends Component {
     window.setTimeout(() => {
       let steps = this.props.steps;
       if(Array.isArray(steps) && steps.length > 0) {
-        // document.removeEventListener("mousedown", dragElement);
+        // used to calculate the new position of the handle
+        document.removeEventListener("mousedown", this.dragElement);
         document.addEventListener("mousemove", this.dragElement);
+        // used to notify the user (using onSlideEnd) when the dragging stops
+        document.removeEventListener("mouseup", this.mouseUpHandler);
         document.addEventListener("mouseup", this.mouseUpHandler);
-        // // calculate pageX and pageY initially
-        // this.dispatchMouseEvent("mousedown", this.handle.current);
-        // this.sliderObject.handleInfo.drag = false;
+        // handle label is optional,
+        // if enabled, its' dimensions should be calculated upon window resize
         if (this.props.showHandleLabel) {
+          // to calculate dimensions initially
           window.addEventListener("resize", this.adjustHandleLabel);
           this.dispatchEvent("resize", window);
         }
@@ -70,6 +73,7 @@ class Slider extends Component {
     },0);
   }
 
+  // used to get the index in the array given the value
   getIndex = (value) => {
     let index = this.sliderObject.steps.findIndex(val => val === value);
     return index > -1 ? index : 0;
@@ -87,13 +91,12 @@ class Slider extends Component {
     let hanldeEl = this.handle.current;
     this.sliderObject.handleInfo.value = useValue ? this.sliderObject.handleInfo.value : this.getIndex(actualValue);
     hanldeEl.style.left = this.calcPosition(this.sliderObject.handleInfo.value, min, totalPoints, hanldeEl);
-    // this.isStateDirty = false;
     if (this.props.showHandleLabel) {
-      // window.addEventListener("resize", this.adjustHandleLabel);
       window.setTimeout(_=> this.dispatchEvent("resize", window), 0);
     }
   }
 
+  // using canvas to measure the width of handle label's content
   getWidth(font, txt) {
     let canvas = document.createElement("canvas");
     let ctx = canvas.getContext("2d");
@@ -101,19 +104,21 @@ class Slider extends Component {
     return ctx.measureText(txt).width + "px";
   }
 
+  // to update dimensions of the handle label upon window resize
   adjustHandleLabel = event => {
     let element = this.handle.current.children[0];
     let computedStyle = window.getComputedStyle(element);
     let font = computedStyle.getPropertyValue('font-size') + " '" + computedStyle.getPropertyValue('font-family') + "'";
     let handleLabelWidth = this.getWidth(font, element.textContent)
-    this.setState(state => ({
+    this.setState({
       handleLabelStyle: {
         width: "calc(" + handleLabelWidth + " + 1rem)",
         left: "calc((-" + handleLabelWidth + " / 2) - 0.5rem + 4px)"
       }
-    }));
+    });
   }
 
+  // to update handle status and also to call onSlideEnd event
   mouseUpHandler = event => {
     if (this.sliderObject.handleInfo.drag) {
       this.sliderObject.handleInfo.drag = false;
@@ -126,6 +131,7 @@ class Slider extends Component {
     }
   }
 
+  // to get handle offset and also to update handle status
   handleMouseDown = event => {
     event.stopPropagation();
     let element = event.target;
@@ -133,8 +139,6 @@ class Slider extends Component {
     this.sliderObject.handleInfo.pageX = clientRect.left + clientRect.width / 2;
     this.sliderObject.handleInfo.pageY = clientRect.top + clientRect.height / 2;
     this.sliderObject.handleInfo.drag = true;
-    // this.slider = slider[0];
-    // slider[0].selectedHandle = this;
   }
 
   dispatchEvent(eventType, element) {
@@ -146,15 +150,15 @@ class Slider extends Component {
     element.dispatchEvent(event);
   }
 
+  // to calculate handle position
   calcPosition(value, min, totalPoints, handleEl) {
-    // console.log(value);
     let val = (value - min) / totalPoints * 100 + "%";
     return "calc(" + val + " - " + (handleEl.getBoundingClientRect().width / 2) + "px)";
   }
 
+  // to update handle position and also to call onSlide event
   dragElement = event => {
     if (!this.sliderObject.handleInfo.drag) return false;
-    // debugger
     let slider = this.slider.current;
     let handle = this.handle.current, handleData = this.sliderObject.handleInfo;
     let preValue = handleData.value, newValue = preValue;
@@ -179,21 +183,15 @@ class Slider extends Component {
       data = {...data, userData: this.props.data};
     if (newValue != preValue && newValue >= min && newValue <= max && 
     ((object.onSlide && typeof object.onSlide === "function") || !object.onSlide)) {
-        // this.setState({handleStyle: { 
-        //   left: this.calcPosition(newValue, min, totalPoints, handleClientRect.width)
-        // }});
-        // handle.style.left = this.calcPosition(newValue, min, totalPoints, handle);
         handleData.value = newValue;
-        // this.isStateDirty = true;
         if(this.props.showHandleLabel) {
           this.dispatchEvent("resize", window);
         }
-        // handle.data.values[i] = newValue;
-        //console.log(newValue);
         return ((object.onSlide && typeof object.onSlide === "function" && object.onSlide(event, data)) || !object.onSlide);
     }
   }
 
+  // to pass mousedown event to handle
   sliderMouseDown = event => {
     this.dispatchEvent("mousedown", this.handle.current);
     this.dragElement(event);

@@ -1,4 +1,4 @@
-const key = "history";
+const key = "history"; // localStorage key
 const localStore = {
     getData: function() {
         let data = window.localStorage.getItem(key);
@@ -13,6 +13,9 @@ const localStore = {
             localData.push(data);
             window.localStorage.setItem(key, JSON.stringify(localData));
         }
+    },
+    clear: function () {
+        window.localStorage.removeItem(key);
     }
 }
 
