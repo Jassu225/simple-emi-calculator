@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/simple-emi-calculator/static/css/main.c9e61b9a.chunk.css",
-    "main.js": "/simple-emi-calculator/static/js/main.d3031c66.chunk.js",
-    "runtime~main.js": "/simple-emi-calculator/static/js/runtime~main.0fcdb998.js",
-    "static/js/2.7e341476.chunk.js": "/simple-emi-calculator/static/js/2.7e341476.chunk.js",
-    "index.html": "/simple-emi-calculator/index.html",
-    "precache-manifest.cf500a333c64fd13f44e525ed94a16a6.js": "/simple-emi-calculator/precache-manifest.cf500a333c64fd13f44e525ed94a16a6.js",
-    "service-worker.js": "/simple-emi-calculator/service-worker.js"
+    "main.css": "/static/css/main.c9e61b9a.chunk.css",
+    "main.js": "/static/js/main.89e9e4bc.chunk.js",
+    "runtime~main.js": "/static/js/runtime~main.f59bec8c.js",
+    "static/js/2.7e341476.chunk.js": "/static/js/2.7e341476.chunk.js",
+    "index.html": "/index.html",
+    "precache-manifest.e7ce5817fe861edc19c247007653bee9.js": "/precache-manifest.e7ce5817fe861edc19c247007653bee9.js",
+    "service-worker.js": "/service-worker.js"
   }
 }
