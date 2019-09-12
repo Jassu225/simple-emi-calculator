@@ -16,7 +16,8 @@ const actionTypes = {
     // network related
     requestInitiated: "requestInitiated",
     responseReceived: "responseReceived",
-    requestFailed: "requestFailed"
+    requestFailed: "requestFailed",
+    hideAlert: "hideAlert"
 };
 
 const actions = {
@@ -27,6 +28,7 @@ const actions = {
     requestInitiated: _=> action(actionTypes.requestInitiated),
     responseReceived: payload => action(actionTypes.responseReceived, payload),
     requestFailed: payload => action(actionTypes.requestFailed, payload),
+    hideAlert: _ => action(actionTypes.hideAlert),
     // impure actions -- network related -- asynchronous
     getData: function (payload) {
         let { loanAmount, loanDuration } = payload, { loanAmountRange, loanDurationRange } = constants;
@@ -48,7 +50,7 @@ const actions = {
             };
         } else {
             // some error occurred
-            return (_=>{});
+            return (dispatch=> dispatch(actions.requestFailed({error: ""})));
         }
     }
 }

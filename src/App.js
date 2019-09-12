@@ -9,6 +9,7 @@ import Slider from './components/slider';
 import History from './components/history';
 import Content from './components/Content';
 import Loader from './components/Loader';
+import Alert from './components/Alert';
 
 import { actions } from './store/actions';
 import store from './store';
@@ -55,7 +56,8 @@ class App extends React.Component {
           </div>
         </div>
         <Content />
-        {/* <Loader /> */}
+        {this.props.isFetchingData && <Loader />}
+        {this.props.showAlert && <Alert message={"some error occurred. Please try again."}/>}
       </div>
     );
   }
@@ -67,7 +69,9 @@ const mapStateToProps = (state, props) => {
     loanDuration: state.loanDuration,
     currencyUnit: state.currencyUnit,
     loanAmountHandleValue: state.loanAmountHandleValue,
-    loanDurationHandleValue: state.loanDurationHandleValue
+    loanDurationHandleValue: state.loanDurationHandleValue,
+    isFetchingData: state.isFetchingData,
+    showAlert: state.showAlert
   }
 }
 

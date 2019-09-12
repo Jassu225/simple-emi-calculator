@@ -15,6 +15,7 @@ let initialState = {
     addToHistory: true,
     fetchData: false,
     isFetchingData: false,
+    showAlert: false,
     serverData: null
 }
 
@@ -78,7 +79,13 @@ let reducer = function (state = initialState, action) {
         case actionTypes.requestFailed:
         return {
             ...state,
-            isFetchingData: false
+            isFetchingData: false,
+            showAlert: true
+        }
+        case actionTypes.hideAlert: 
+        return {
+            ...state,
+            showAlert: false
         }
         default: 
             return state;
