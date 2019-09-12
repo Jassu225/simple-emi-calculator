@@ -27,7 +27,13 @@ The middle one is the `selections` section.  The user interacts with this part o
 
 The section at the very right is the `EMI Info` section. As the name describes, this section shows the EMI info.
 
-To handle network-related errors, an `error handling` mechanism is used. A snack bar appears (and disappears after a timeout) when a network-related error occurs. 
+To handle network-related errors, an `error handling` mechanism is used. A snack bar appears ( and disappears after a timeout ) when a network-related error occurs. 
+
+Below are the production links. Check it out.
+
+[https://jassu225.github.io/simple-emi-calculator/](https://jassu225.github.io/simple-emi-calculator/)
+
+[https://emi-calc.herokuapp.com/](https://emi-calc.herokuapp.com/)
 
 ## Available Scripts
 
