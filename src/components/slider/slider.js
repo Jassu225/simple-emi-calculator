@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import './slider.css';
 
+// An independent plugin
 class Slider extends Component {
   constructor(props) {
     super(props);
+    // used to get the dimensions & offset of the slider
     this.slider = React.createRef();
+    // used to get the dimensions & offset of the handle
+    // also used to set the handle position & handle label's dimensions
     this.handle = React.createRef();
-    // console.log(this.props.steps);
     this.sliderObject = {
-      totalPoints: 0,
+      totalPoints: 0, // no. of divisions in the slider (usually equals to [no. of steps] - 1)
       handleInfo: {
-        value: 0,
+        value: 0, 
         pageX: -1,
         pageY: -1,
         drag: false
@@ -18,15 +21,15 @@ class Slider extends Component {
       min: 0,
       max: 0,
       steps: [],
-      onSlide: null
+      onSlide: null,
+      onSlideEnd: null
     }
-    // this.isStateDirty = false;
     this.state = {
-      // handleValue: this.sliderObject.handleInfo.value,
       handleLabelStyle: {}
     };
   }
 
+  // used to determine whether or not to update the component
   shouldComponentUpdate(newProps, newState) {
     return (
       (JSON.stringify(this.state) != JSON.stringify(newState))
@@ -40,7 +43,10 @@ class Slider extends Component {
       this.sliderObject.steps = steps;
       this.sliderObject.totalPoints = steps.length - 1;
       this.sliderObject.max = steps.length - 1;
-      this.sliderObject.onSlide = this.props.onSlide && typeof this.props.onSlide === "function" ? this.props.onSlide : null;
+      this.sliderObject.onSlide = this.props.onSlide && typeof this.props.onSlide === "function" ? 
+              this.props.onSlide : null;
+      this.sliderObject.onSlideEnd = this.props.onSlideEnd && typeof this.props.onSlideEnd === "function" ? 
+              this.props.onSlideEnd : null;
       // this.props.value = this.sliderObject.steps[this.sliderObject.handleInfo.value];
       // this.setState({handleLabelValue: this.sliderObject.steps[this.sliderObject.handleInfo.value]});
     }
@@ -108,8 +114,16 @@ class Slider extends Component {
     }));
   }
 
-  mouseUpHandler = _=> {
-    this.sliderObject.handleInfo.drag = false;
+  mouseUpHandler = event => {
+    if (this.sliderObject.handleInfo.drag) {
+      this.sliderObject.handleInfo.drag = false;
+      if (this.sliderObject.onSlideEnd && typeof this.sliderObject.onSlideEnd === "function") {
+        let data = {value: this.sliderObject.steps[this.sliderObject.handleInfo.value], handleInDrag: false};
+        if (this.props.data)
+          data = {...data, userData: this.props.data};
+        this.sliderObject.onSlideEnd(event, data);
+      }
+    }
   }
 
   handleMouseDown = event => {
@@ -160,7 +174,7 @@ class Slider extends Component {
     else if (newValue > max)
       newValue = max;
     
-    let data = {value: object.steps[newValue]};
+    let data = {value: object.steps[newValue], handleInDrag: this.sliderObject.handleInfo.drag};
     if (this.props.data)
       data = {...data, userData: this.props.data};
     if (newValue != preValue && newValue >= min && newValue <= max && 

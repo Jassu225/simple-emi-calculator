@@ -8,15 +8,20 @@ import { actions } from '../../store/actions';
 class History extends Component {
   historyItemClicked = index => {
     let data = this.props.historyData[index];
+    // dispatching this action to send the data
+    // of the history item clicked by the user
     this.props.loadDataFromHistory({
       ...data,
+      // used to determine whether or not to add the 
+      // selected history item to history
+      // not adding the most recent selection to the history again 
       addToHistory: index != this.props.historyData.length - 1
     });
   }
 
   render() {
-    // console.log(this.props);
     let elements = [], history = this.props.historyData ? this.props.historyData : [];
+    // plotting the history with the most recent selection at the top
     for(let i = history.length - 1; i >= 0 ; i--) {
       elements.push(
         <div className="history-item" key={i}>

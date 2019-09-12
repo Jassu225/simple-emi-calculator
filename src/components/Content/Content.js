@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import './Content.css'
+import './Content.css';
 
 class Content extends Component {
 
@@ -27,7 +27,7 @@ class Content extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = (state) => {
   let { loanAmount, loanDuration, currencyUnit, interestRate,
      monthlyPayment, isFetchingData, lastLoanDuration} = state;
   return {

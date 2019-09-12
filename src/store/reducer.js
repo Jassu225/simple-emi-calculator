@@ -24,25 +24,25 @@ let reducer = function (state = initialState, action) {
         case actionTypes.updateLoanAmount: {
         let payload = null;
         if(action.payload)
-            payload = parseFloat(action.payload);
+            payload = parseFloat(action.payload.value);
         payload = payload && isNaN(payload) ? state.loanAmount : payload;
         return {
             ...state, 
             loanAmount: payload,
             loanAmountHandleValue: payload + " " + constants.loanAmountRange.unit,
-            fetchData: true
+            fetchData: action.payload.fetchFromDB
         }}
         case actionTypes.updateLoanDuration: {
         let payload = null;
         if(action.payload)
-            payload = parseFloat(action.payload);
+            payload = parseFloat(action.payload.value);
         payload = payload && isNaN(payload) ? state.loanDuration : payload;
         return {
             ...state, 
             lastLoanDuration: state.loanDuration,
             loanDuration: payload,
             loanDurationHandleValue: payload + " " + constants.loanDurationRange.unit,
-            fetchData: true
+            fetchData: action.payload.fetchFromDB
         }}
         case actionTypes.loadFromHistory:
         return {

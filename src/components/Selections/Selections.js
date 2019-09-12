@@ -8,6 +8,8 @@ import constants from '../../store/constants';
 import { actions } from '../../store/actions';
 
 class Selections extends Component {
+  // used to generate all possible points
+  // given the max, min and suffix values
   generateRange(min, max, suffix) {
     let range = [];
     for (let i = min; i <= max; i++){
@@ -17,9 +19,13 @@ class Selections extends Component {
   }
 
   onSlide = (event, data) => {
-    this.props.updateData(data.userData.action,data.value);
-    // let { loanAmount, loanDuration } = this.props;
-    // dispatch(actions.getData({ loanAmount, loanDuration }));
+    // used to send the data to the store
+    // in-order to fetch data from the api
+    // also to trigger subsequent UI updates
+    this.props.updateData(data.userData.action,{
+      value: data.value,
+      fetchFromDB: !data.handleInDrag
+    });
   }
 
   render() {
@@ -34,7 +40,8 @@ class Selections extends Component {
         </div>
         <div className="slider-container">
           <Slider steps={loanAmountRange} data={{ stateProp: "loanAmount", action: actions.updateLoanAmount }}
-            showHandleLabel className="loanAmountSlider" onSlide={this.onSlide} value={this.props.loanAmountHandleValue} />
+            showHandleLabel className="loanAmountSlider" onSlide={this.onSlide} onSlideEnd={this.onSlide} 
+            value={this.props.loanAmountHandleValue} />
         </div>
         <div className="slider-selection loanDuration">
           <div className="slider-selection-header">Duration: </div>
@@ -42,7 +49,8 @@ class Selections extends Component {
         </div>
         <div className="slider-container">
           <Slider steps={loanDurationRange} data={{ stateProp: "loanDuration", action: actions.updateLoanDuration }}
-            showHandleLabel className="loanDurationSlider" onSlide={this.onSlide} value={this.props.loanDurationHandleValue} />
+            showHandleLabel className="loanDurationSlider" onSlide={this.onSlide} onSlideEnd={this.onSlide}
+            value={this.props.loanDurationHandleValue} />
         </div>
       </div>
     );

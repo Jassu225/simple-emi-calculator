@@ -14,10 +14,12 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <History/>
-        <Selections />
-        <Content />
+        <History/>{/* Used to display the previous selections with the most recent one at the top. */}
+        <Selections /> {/* Selections to be made by the user inorder to fetch the data from the api server. */}
+        <Content /> {/* Used to display the result obtained from the server. */}
+        {/* A busy to block the user from interacting with the UI when fetching data from the api server*/}
         {this.props.isFetchingData && <Loader />}
+        {/* A snack bar to inform the user in-case of network-related errors. */}
         {this.props.showAlert && <Alert message={"some error occurred. Please try again."}/>}
       </div>
     );
