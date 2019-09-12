@@ -4,7 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm devstart` or `yarn devstart`
+### `npm run devstart` or `yarn devstart`
 
 Runs the app in the development mode.<br>
 
@@ -30,6 +30,21 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 Runs the app in the production mode using the latest build.
 
+## How to install
+
+#### step 1: 
+
+Clone this repository using this link: [https://github.com/Jassu225/simple-emi-calculator](https://github.com/Jassu225/simple-emi-calculator)
+
+#### step 2:
+
+Install all the dependencied by executing the following command in the terminal.
+
+### `npm install` or `npm i` or `yarn install` or `yarn`
+
+#### step 3:
+Run `npm run devstart` or   `yarn devstart` to run the app in development mode.
+
 ## About the app
 
 This app is a simple EMI calculator built using React. Takes two inputs `loan amount (in USD)` and `duration (in months)`. Uses an [api](https://ftl-frontend-test.herokuapp.com/interest) to fetch the `interest rate` and `monthly payment`.
@@ -42,4 +57,8 @@ The middle one is the `selections` section.  The user interacts with this part o
 
 The section at the very right is the `EMI Info` section. As the name describes, this section shows the EMI info.
 
-To handle network-related errors, an `error handling` mechanism is used. A snack bar appears (and disappears after a timeout) when a network-related error occurs.
+To handle network-related errors, an `error handling` mechanism is used. A snack bar appears (and disappears after a timeout) when a network-related error occurs. 
+
+Happy scripting :stuck_out_tongue_winking_eye: !!!
+
+This repo is licensed under `MIT`.
