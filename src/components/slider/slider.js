@@ -82,6 +82,10 @@ class Slider extends Component {
     this.sliderObject.handleInfo.value = useValue ? this.sliderObject.handleInfo.value : this.getIndex(actualValue);
     hanldeEl.style.left = this.calcPosition(this.sliderObject.handleInfo.value, min, totalPoints, hanldeEl);
     // this.isStateDirty = false;
+    if (this.props.showHandleLabel) {
+      // window.addEventListener("resize", this.adjustHandleLabel);
+      window.setTimeout(_=> this.dispatchEvent("resize", window), 0);
+    }
   }
 
   getWidth(font, txt) {

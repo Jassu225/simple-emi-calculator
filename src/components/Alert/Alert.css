@@ -1,0 +1,26 @@
+.alert-dialog {
+    width: 20rem;
+    height: 2rem;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template: 1fr / 1fr 4rem;
+    background-color: #e80404;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    font-size: 0.7rem;
+    z-index: 9999;
+    color: white;
+    transition: top 0.2s ease-out;
+}
+
+.alert-dialog > .message {
+    color: white;
+}
+
+.alert-dialog > .closeBtn { 
+    cursor: pointer;
+}
