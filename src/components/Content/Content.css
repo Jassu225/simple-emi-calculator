@@ -1,21 +1,17 @@
 .content {
     display: grid;
-    grid-template: 10% 1fr 1fr 1fr 7fr / 4fr 5fr;
-    grid-template-areas: "mainHeader mainHeader"
-                        "interestHeader interestValue"
-                        "monthlyPaymentHeader monthlyPaymentValue"
-                        "totalPaymentHeader totalPaymentValue"
-                        ". .";
+    grid-template: 10% 0.8fr 1fr 2fr / 1fr;
+    grid-template-areas: "mainHeader" "." "wrapper" ".";
     background-color: #eff9ff;
 }
 
 .content > .main-header,
-.content > .interest-rate.header,
-.content > .interest-rate.value,
-.content > .monthly-payment.header,
-.content > .monthly-payment.value,
-.content > .total-payment.header,
-.content > .total-payment.value {
+.content > .wrapper > .interest-rate.header,
+.content > .wrapper > .interest-rate.value,
+.content > .wrapper > .monthly-payment.header,
+.content > .wrapper > .monthly-payment.value,
+.content > .wrapper > .total-payment.header,
+.content > .wrapper > .total-payment.value {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -29,26 +25,36 @@
     background-color: #4aa6e2;
 }
 
-.content > .interest-rate.header {
+.content > .wrapper {
+    grid-area: wrapper;
+    display: grid;
+    grid-template: 1fr 1fr 1fr / 3fr 2fr;
+    margin: 0 1.4rem;
+    padding: 1.4rem 0;
+    background-color: #d1e7df;
+    box-shadow: 0 0 3px 0 rgba(0 ,0,0,0.2)
+}
+
+/* .content .interest-rate.header {
     grid-area: interestHeader;
 }
 
-.content > .interest-rate.value {
+.content .interest-rate.value {
     grid-area: interestValue;
 }
 
-.content > .monthly-payment.header {
+.content .monthly-payment.header {
     grid-area: monthlyPaymentHeader;
 }
 
-.content > .monthly-payment.value {
+.content .monthly-payment.value {
     grid-area: monthlyPaymentValue;
 }
 
-.content > .total-payment.header {
+.content .total-payment.header {
     grid-area: totalPaymentHeader;
 }
 
-.content > .total-payment.value {
+.content .total-payment.value {
     grid-area: totalPaymentValue;
-}
+} */
