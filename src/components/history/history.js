@@ -42,7 +42,9 @@ class History extends Component {
             <div>Action</div>
           </div>
         </div>
-        <div className="history-content">{elements}</div>
+        <div className="history-content">
+          {elements.length ? elements : <div className="no-history">history goes here</div>}
+        </div>
       </div>
     );
   }
