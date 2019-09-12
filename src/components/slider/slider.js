@@ -70,7 +70,7 @@ class Slider extends Component {
   }
 
   componentDidUpdate() {
-    console.log('updated');
+    // console.log('updated');
     let actualValue = "", useValue = false;;
     if(this.props.value) {
       actualValue = this.props.value;

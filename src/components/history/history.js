@@ -15,9 +15,9 @@ class History extends Component {
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     let elements = [], history = this.props.historyData ? this.props.historyData : [];
-    for(let i = 0; i < history.length; i++) {
+    for(let i = history.length - 1; i >= 0 ; i--) {
       elements.push(
         <div className="history-item" key={i}>
           <div className="history-loan-amount">

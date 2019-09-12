@@ -61,7 +61,7 @@ let reducer = function (state = initialState, action) {
             fetchData: false
         }
         case actionTypes.responseReceived:
-        console.log(action.payload);
+        // console.log(action.payload);
         let {interestRate, monthlyPayment} = action.payload;
         let newState = {
             ...state,
