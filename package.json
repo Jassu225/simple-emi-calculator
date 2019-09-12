@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/polyfill": "^7.6.0",
+    "core-js": "^3.2.1",
     "cross-fetch": "^3.0.4",
     "eslint-utils": "^1.4.2",
     "express": "^4.17.1",
